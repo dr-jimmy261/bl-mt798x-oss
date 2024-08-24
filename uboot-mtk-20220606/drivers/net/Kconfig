@@ -41,6 +41,13 @@ config DM_MDIO_MUX
 	  This is currently implemented in net/mdio-mux-uclass.c
 	  Look in include/miiphy.h for details.
 
+config RTL8367C
+	bool "Enable RTL8367C switches Driver"
+	depends on PHY_FIXED
+	default n
+	help
+	  Enable driver for RTL8367C switches
+
 config DM_DSA
 	bool "Enable Driver Model for DSA switches"
 	depends on DM_ETH && DM_MDIO

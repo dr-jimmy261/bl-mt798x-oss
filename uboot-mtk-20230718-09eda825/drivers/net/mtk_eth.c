@@ -28,6 +28,12 @@
 #include <linux/mii.h>
 
 #include "mtk_eth.h"
+#if defined (CONFIG_RTL8367C)
+#include "rtl8367c/include/smi.h"
+#include "rtl8367c/include/port.h"
+#include "rtl8367c/include/rtk_switch.h"
+#include "rtl8367c/include/rtl8367c_asicdrv_port.h"
+#endif
 
 #define NUM_TX_DESC		24
 #define NUM_RX_DESC		24
@@ -86,6 +92,7 @@ enum mtk_switch {
 	SW_MT7531,
 	SW_MT7988,
 	SW_AN8855,
+	SW_RTL8367C,
 };
 
 /* struct mtk_soc_data -	This is the structure holding all differences
@@ -361,6 +368,24 @@ static int mtk_mmd_ind_write(struct mtk_eth_priv *priv, u8 addr, u8 devad,
 
 	return priv->mii_write(priv, addr, MII_MMD_ADDR_DATA_REG, val);
 }
+
+#if defined (CONFIG_RTL8367C)
+static struct mtk_eth_priv *mii_priv;
+
+u32 mii_mgr_read(u32 phy_addr, u32 phy_register, u32 *read_data)
+{
+	*read_data = mtk_mii_read(mii_priv, (u8)phy_addr, (u8)phy_register);
+
+	return 0;
+}
+
+u32 mii_mgr_write(u32 phy_addr, u32 phy_register, u32 write_data)
+{
+	mtk_mii_write(mii_priv, (u8)phy_addr, (u8)phy_register, (u16)write_data);
+
+	return 0;
+}
+#endif
 
 /*
  * MT7530 Internal Register Address Bits
@@ -2044,6 +2069,48 @@ static int an8855_setup(struct mtk_eth_priv *priv)
 	return 0;
 }
 
+#if defined (CONFIG_RTL8367C)
+static int rtl8367_setup(struct mtk_eth_priv *priv)
+{
+	int ret;
+	int i;
+	mii_priv = priv;
+
+	rtk_port_mac_ability_t mac_cfg;
+	rtk_mode_ext_t mode;
+
+	ret = rtk_switch_init();
+	if (ret) {
+		debug("\nRTL8367C: Chip not found, ret=%d!\n", ret);
+		return ret;
+	}
+
+	printf("RTL8367C\n");
+	mdelay(500);
+
+	mode = MODE_EXT_HSGMII;
+	mac_cfg.forcemode = MAC_FORCE;
+	mac_cfg.speed = PORT_SPEED_2500M;
+	mac_cfg.duplex = PORT_FULL_DUPLEX;
+	mac_cfg.link = PORT_LINKUP;
+	mac_cfg.nway = DISABLED;
+	mac_cfg.txpause = DISABLED;
+	mac_cfg.rxpause = DISABLED;
+
+	ret = rtk_port_macForceLinkExt_set(EXT_PORT0, mode, &mac_cfg);
+	if (ret)
+		return ret;
+
+	ret = rtk_port_sgmiiNway_set(EXT_PORT0, DISABLED);
+	if (ret)
+		return ret;
+
+	rtk_port_phyEnableAll_set(ENABLED);
+
+	return 0;
+}
+#endif
+
 static int mt753x_switch_init(struct mtk_eth_priv *priv)
 {
 	int ret;
@@ -2079,6 +2146,16 @@ static int mt753x_switch_init(struct mtk_eth_priv *priv)
 					(0x8100 << STAG_VPID_S) |
 					(VLAN_ATTR_USER << VLAN_ATTR_S));
 		}
+#if defined (CONFIG_RTL8367)
+	} else if (priv->sw == SW_RTL8367C) {
+		rtk_portmask_t pPortmask;
+		for (i = UTP_PORT0; i <= UTP_PORT4; i++) {
+			memset(&pPortmask, 0, sizeof(pPortmask));
+			RTK_PORTMASK_PORT_SET(pPortmask, i);
+			RTK_PORTMASK_PORT_SET(pPortmask, EXT_PORT0);
+			rtk_port_isolation_set(i, &pPortmask);
+	        }
+#endif
 	} else {
 		for (i = 0; i < MT753X_NUM_PORTS; i++) {
 			/* Set port matrix mode */
@@ -2962,6 +3039,12 @@ static int mtk_eth_of_to_plat(struct udevice *dev)
 			priv->switch_init = an8855_setup;
 			priv->mt753x_smi_addr = AN8855_DFL_SMI_ADDR;
 			priv->mt753x_reset_wait_time = 200;
+#if defined (CONFIG_RTL8367C)
+		} else if(!strcmp(str, "rtl8367c")) {
+			priv->sw = SW_RTL8367C;
+			priv->switch_init = rtl8367_setup;
+			priv->mt753x_reset_wait_time = 1000;
+#endif
 		} else {
 			printf("error: unsupported switch\n");
 			return -EINVAL;
