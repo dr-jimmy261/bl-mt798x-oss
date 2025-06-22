@@ -89,7 +89,7 @@ bool plat_is_my_cpu_primary(void)
 }
 
 const struct initcall bl2_initcalls[] = {
-	INITCALL(mtk_timer_init),
+	//INITCALL(mtk_timer_init),
 	INITCALL(generic_delay_timer_init),
 	INITCALL(mtk_wdt_init),
 	INITCALL(mtk_pin_init),

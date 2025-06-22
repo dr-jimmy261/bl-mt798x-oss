@@ -13,6 +13,8 @@
 #include <dt-bindings/clock/mt7986-clk.h>
 #include <linux/bitops.h>
 
+#include <linux/clk-provider.h>
+
 #include "clk-mtk.h"
 
 #define MT7986_CLK_PDN 0x250

@@ -2,13 +2,13 @@
 
 /dts-v1/;
 #include <dt-bindings/input/linux-event-codes.h>
-#include "mt7986.dtsi"
+#include "mt7986a-custom.dtsi"
 #include <dt-bindings/gpio/gpio.h>
 
 / {
 	#address-cells = <1>;
 	#size-cells = <1>;
-	model = "mt7986-glinet_gl-mt6000";
+	model = "mt7986-bananapi-bpi-r3-mini";
 	compatible = "mediatek,mt7986", "mediatek,mt7986-rfb";
 
 	chosen {
@@ -18,13 +18,11 @@
 
 	config {
 		bootcmd = "mtkboardboot";
-		blink_led = "white:system";
-		system_led = "blue:run";
 	};
 
 	memory@40000000 {
 		device_type = "memory";
-		reg = <0x40000000 0x40000000>;
+		reg = <0x40000000 0x80000000>;
 	};
 
 	gpio-keys {
@@ -33,22 +31,7 @@
 		button-reset {
 			label = "reset";
 			linux,code = <KEY_RESTART>;
-			gpios = <&gpio 9 GPIO_ACTIVE_LOW>;
-		};
-	};
-
-	gpio-leds {
-		compatible = "gpio-leds";
-
-		led_run: led-0 {
-			label = "blue:run";
-			gpios = <&gpio 38 GPIO_ACTIVE_LOW>;
-			default-state = "on";
-		};
-
-		led-1 {
-			label = "white:system";
-			gpios = <&gpio 37 GPIO_ACTIVE_LOW>;
+			gpios = <&gpio 7 GPIO_ACTIVE_LOW>;
 		};
 	};
 
@@ -76,16 +59,53 @@
 };
 
 &eth {
-	status = "okay";
-	mediatek,gmac-id = <0>;
-	phy-mode = "2500base-x";
-	mediatek,switch = "mt7531";
-	reset-gpios = <&gpio 48 GPIO_ACTIVE_HIGH>;
-
-	fixed-link {
-		speed = <2500>;
-		full-duplex;
-	};
+    status = "okay";
+    pinctrl-names = "default";
+    pinctrl-0 = <&eth_pins>;
+    
+    // Dual MAC architecture
+    gmac0: mac@0 {
+        compatible = "mediatek,eth-mac";
+        reg = <0>;
+        phy-mode = "2500base-x";
+        phy-handle = <&phy14>;
+    };
+    
+    gmac1: mac@1 {
+        compatible = "mediatek,eth-mac";
+        reg = <1>;
+        phy-mode = "2500base-x";
+        phy-handle = <&phy15>;
+    };
+    
+    mdio: mdio-bus {
+        #address-cells = <1>;
+        #size-cells = <0>;
+        
+        phy14: phy@14 {
+            compatible = "ethernet-phy-id03a2.a411";
+            reg = <14>;
+            pinctrl-names = "default";
+            pinctrl-0 = <&en8811_pwr_a>;
+            
+            airoha,rx-pol-reverse;
+            reset-gpios = <&gpio 49 GPIO_ACTIVE_LOW>;
+            reset-assert-us = <10000>;
+            reset-deassert-us = <20000>;
+        };
+        
+        phy15: phy@15 {
+            compatible = "ethernet-phy-id03a2.a411";
+            reg = <15>;
+            pinctrl-names = "default";
+            pinctrl-0 = <&en8811_pwr_b>;
+            
+            airoha,rx-pol-reverse;
+            reset-gpios = <&gpio 47 GPIO_ACTIVE_LOW>;
+            reset-assert-us = <10000>;
+            reset-deassert-us = <20000>;
+        };
+    };
 };
 
 &mmc0 {
@@ -133,6 +153,27 @@
 			drive-strength = <MTK_DRIVE_4mA>;
 			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
 		};
+	};
+
+	eth_pins: eth-pins {
+		mux {
+			function = "eth";
+			groups = "mdc_mdio";
+		};
+	};
+		
+	en8811_pwr_a: en8811-pwr-a {
+		pins = "GPIO_11";
+		drive-strength = <8>;
+		mediatek,pull-down-adv = <1>;
+		output-low;
+	};
+
+	en8811_pwr_b: en8811-pwr-b {
+		pins = "GPIO_12";
+		drive-strength = <8>;
+		mediatek,pull-down-adv = <1>;
+		output-low;
 	};
 };
 

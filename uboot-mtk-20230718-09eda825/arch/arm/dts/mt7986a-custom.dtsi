@@ -9,6 +9,7 @@
 #include <dt-bindings/phy/phy.h>
 #include <dt-bindings/clock/mt7986-clk.h>
 #include <dt-bindings/reset/mt7629-reset.h>
+#include <dt-bindings/reset/mt7986-resets.h>
 #include <dt-bindings/pinctrl/mt65xx.h>
 #include <dt-bindings/input/linux-event-codes.h>
 
@@ -64,6 +65,51 @@
 
 		secmon_reserved: secmon@43000000 {
 			reg = <0x43000000 0x30000>;
+			no-map;
+		};
+		
+		wmcpu_emi: wmcpu-reserved@4fc00000 {
+			no-map;
+			reg = <0x4fc00000 0x00100000>;
+		};
+
+		wo_emi0: wo-emi@4fd00000 {
+			reg = <0x4fd00000 0x40000>;
+			no-map;
+		};
+
+		wo_emi1: wo-emi@4fd40000 {
+			reg = <0x4fd40000 0x40000>;
+			no-map;
+		};
+
+		wo_ilm0: wo-ilm@151e0000 {
+			reg = <0x151e0000 0x8000>;
+			no-map;
+		};
+
+		wo_ilm1: wo-ilm@151f0000 {
+			reg = <0x151f0000 0x8000>;
+			no-map;
+		};
+
+		wo_data: wo-data@4fd80000 {
+			reg = <0x4fd80000 0x240000>;
+			no-map;
+		};
+
+		wo_dlm0: wo-dlm@151e8000 {
+			reg = <0x151e8000 0x2000>;
+			no-map;
+		};
+
+		wo_dlm1: wo-dlm@151f8000 {
+			reg = <0x151f8000 0x2000>;
+			no-map;
+		};
+
+		wo_boot: wo-boot@15194000 {
+			reg = <0x15194000 0x1000>;
 			no-map;
 		};
 	};
@@ -126,6 +172,53 @@
 		#clock-cells = <1>;
 	};
 
+	wed_pcie: wed-pcie@10003000 {
+	compatible = "mediatek,mt7986-wed-pcie",
+		     "syscon";
+	reg = <0x10003000 0x10>;
+	};
+	
+	wed0: wed@15010000 {
+	compatible = "mediatek,mt7986-wed",
+		     "syscon";
+	reg = <0x15010000 0x1000>;
+	interrupt-parent = <&gic>;
+	interrupts = <GIC_SPI 205 IRQ_TYPE_LEVEL_HIGH>;
+	memory-region = <&wo_emi0>, <&wo_ilm0>, <&wo_dlm0>,
+			<&wo_data>, <&wo_boot>;
+	memory-region-names = "wo-emi", "wo-ilm", "wo-dlm",
+			      "wo-data", "wo-boot";
+	mediatek,wo-ccif = <&wo_ccif0>;
+	};
+
+	wed1: wed@15011000 {
+		compatible = "mediatek,mt7986-wed",
+			     "syscon";
+		reg = <0x15011000 0x1000>;
+		interrupt-parent = <&gic>;
+		interrupts = <GIC_SPI 206 IRQ_TYPE_LEVEL_HIGH>;
+		memory-region = <&wo_emi1>, <&wo_ilm1>, <&wo_dlm1>,
+				<&wo_data>, <&wo_boot>;
+		memory-region-names = "wo-emi", "wo-ilm", "wo-dlm",
+				      "wo-data", "wo-boot";
+		mediatek,wo-ccif = <&wo_ccif1>;
+	};
+	
+	wo_ccif0: syscon@151a5000 {
+	compatible = "mediatek,mt7986-wo-ccif", "syscon";
+	reg = <0x151a5000 0x1000>;
+	interrupt-parent = <&gic>;
+	interrupts = <GIC_SPI 211 IRQ_TYPE_LEVEL_HIGH>;
+	};
+
+	wo_ccif1: syscon@151ad000 {
+		compatible = "mediatek,mt7986-wo-ccif", "syscon";
+		reg = <0x151ad000 0x1000>;
+		interrupt-parent = <&gic>;
+		interrupts = <GIC_SPI 212 IRQ_TYPE_LEVEL_HIGH>;
+	};
+
+	
 	topckgen: topckgen@1001B000 {
 		compatible = "mediatek,mt7986-topckgen";
 		reg = <0x1001B000 0x1000>;
@@ -243,7 +336,7 @@
 	
 	apmixedsys: apmixedsys@1001e000 {
 	compatible = "mediatek,mt7986-apmixedsys";
-	reg = <0 0x1001E000 0 0x1000>;
+	reg = <0x1001E000 0x1000>;
 	#clock-cells = <1>;
 	};
 	
@@ -257,7 +350,7 @@
 
 	eth: ethernet@15100000 {
 			compatible = "mediatek,mt7986-eth";
-			reg = <0 0x15100000 0 0x80000>;
+			reg = <0x15100000 0x80000>;
 			interrupts = <GIC_SPI 196 IRQ_TYPE_LEVEL_HIGH>,
 				     <GIC_SPI 197 IRQ_TYPE_LEVEL_HIGH>,
 				     <GIC_SPI 198 IRQ_TYPE_LEVEL_HIGH>,
@@ -289,6 +382,8 @@
 						 <&apmixedsys CLK_APMIXED_SGMPLL>;
 			mediatek,ethsys = <&ethsys>;
 			mediatek,sgmiisys = <&sgmiisys0>, <&sgmiisys1>;
+			mediatek,wed-pcie = <&wed_pcie>;
+			mediatek,wed = <&wed0>, <&wed1>;
 			#reset-cells = <1>;
 			#address-cells = <1>;
 			#size-cells = <0>;
