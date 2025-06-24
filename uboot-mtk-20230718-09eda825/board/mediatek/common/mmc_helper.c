@@ -37,7 +37,8 @@
 #define ROOTDEV_OVERLAY_ALIGN	(64ULL * 1024ULL)
 
 #define PART_PRODUCTION_NAME	"production"
-#define PART_KERNEL_NAME	"kernel"
+//#define PART_KERNEL_NAME	"kernel"
+#define PART_KERNEL_NAME	"recovery"
 #define PART_ROOTFS_NAME	"rootfs"
 
 struct mmc_image_read_priv {
@@ -980,9 +981,9 @@ int mmc_boot_image(u32 dev)
 	if (IS_ENABLED(CONFIG_MTK_DUAL_BOOT))
 		return mmc_dual_boot(dev);
 
-	ret = boot_from_mmc_partition(dev, 0, PART_KERNEL_NAME);
+	ret = boot_from_mmc_partition(dev, 0, PART_PRODUCTION_NAME);
 	if (ret == -ENOENT) {
-		return boot_from_mmc_partition(dev, 0, PART_PRODUCTION_NAME);
+		return boot_from_mmc_partition(dev, 0, PART_KERNEL_NAME);
 	}
 
 	return ret;

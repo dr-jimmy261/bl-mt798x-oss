@@ -23,6 +23,7 @@
 
 #define PART_BL2_NAME		"bl2"
 #define PART_FIP_NAME		"fip"
+#define PART_FIT_NAME		"fit"
 
 static int write_part(const char *partname, const void *data, size_t size,
 		      bool verify)

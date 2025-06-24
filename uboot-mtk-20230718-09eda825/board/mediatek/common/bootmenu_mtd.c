@@ -326,7 +326,7 @@ static int erase_env(void *priv, const struct data_part_entry *dpe,
 	int ret = 0;
 
 #if !defined(CONFIG_MTK_SECURE_BOOT) && !defined(CONFIG_ENV_IS_NOWHERE) && \
-    !defined(CONFIG_MTK_DUAL_BOOT)
+    !defined(CONFIG_MTK_DUAL_BOOT) && defined(CONFIG_ENV_IS_IN_MTD)
 #ifdef CONFIG_ENV_IS_IN_UBI
 	if (ubi_part(CONFIG_ENV_UBI_PART, UBI_VID_OFFSET))
 		return -EIO;

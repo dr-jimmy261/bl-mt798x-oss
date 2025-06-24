@@ -1,0 +1,261 @@
+[33mcommit 5555bd3b582783ff91389a58e05156a982fbbb62[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: thai020601 <thaithaimimi@gmail.com>
+Date:   Tue Jun 24 16:46:04 2025 +0700
+
+    Add EMMC defconfigs
+
+[33mcommit f600e34d1a42657bf9540699129fb3965f76112e[m
+Author: thai020601 <thaithaimimi@gmail.com>
+Date:   Mon Jun 23 00:01:34 2025 +0700
+
+    adjust Config file
+
+[33mcommit 95c57cf3c9bf6b3184cd3a9792f3d505ac9709e7[m
+Author: thai020601 <thaithaimimi@gmail.com>
+Date:   Sun Jun 22 23:41:32 2025 +0700
+
+    Update EN8811 Driver
+
+[33mcommit ea28e8f249e9b400f945f10806c391e8ccbb3775[m
+Author: thai020601 <thaithaimimi@gmail.com>
+Date:   Sun Jun 22 23:38:26 2025 +0700
+
+    DTS file finish
+
+[33mcommit 2f971666ca405b947df1de29e53f84aa8476a381[m
+Author: thai020601 <thaithaimimi@gmail.com>
+Date:   Sun Jun 22 20:39:58 2025 +0700
+
+    Test
+
+[33mcommit fba9f578484f3ab689038eb9cd91eb7b0924b256[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: hanwckf <hanwckf@vip.qq.com>
+Date:   Fri Nov 29 15:53:30 2024 +0800
+
+    update README.md
+
+[33mcommit 9342a63e46d1467629d17e7bf4317a839567a9b6[m
+Author: hanwckf <my375229675@gmail.com>
+Date:   Fri Nov 29 00:41:08 2024 +0800
+
+    update README.md
+
+[33mcommit 83c7df3f2ef0f1612732476a0f168214e9dce970[m
+Author: hanwckf <hanwckf@vip.qq.com>
+Date:   Thu Nov 28 15:48:58 2024 +0800
+
+    atf-2023: add support for mt7988
+
+[33mcommit c186c4a6bd8e8e4df6b1c6b36d5e05b8794c8b4a[m
+Author: hanwckf <hanwckf@vip.qq.com>
+Date:   Thu Nov 28 15:48:12 2024 +0800
+
+    atf-2023: enable uart dl by default
+
+[33mcommit 29b9c3a719c6c2e8b303510d984c0066eb629f1c[m
+Author: Shuanglei Tao <tsl0922@gmail.com>
+Date:   Mon Nov 25 23:09:38 2024 +0800
+
+    uboot-2023: fix failsafe boot via env (#107)
+
+[33mcommit 15ad0ed949043bcbbcb5ef501ba156b1f25e676f[m[33m ([m[1;33mtag: [m[1;33m20241115[m[33m)[m
+Author: hanwckf <hanwckf@vip.qq.com>
+Date:   Fri Nov 15 02:34:47 2024 +0800
+
+    uboot-2023: fix ruijie-x60 build
+
+[33mcommit 1d9d2e2be11bc264f14c670fd669265230323ba8[m
+Author: hanwckf <hanwckf@vip.qq.com>
+Date:   Fri Nov 15 02:27:39 2024 +0800
+
+    atf: call bromimage-x86_64 for aarch64 host
+
+[33mcommit 0aa0e7eb59b1521d40e0bc44767da950a31180eb[m
+Author: Ashley Lee <code@emtips.net>
+Date:   Fri Nov 15 02:01:08 2024 +0800
+
+    mt7986: add support for Ruijie RG-X60 (NEW) (#95)
+    
+    * mt7986: add support for Ruijie RG-X60 (NEW)
+    
+    uboot: add customed bootconf
+    
+    mt7981: fix Ruijie RG-X30E and Ruijie RG-X30E Pro default config name typo
+    
+    Signed-off-by: Ashley Lee <code@emtips.net>
+    
+    * Update uboot-mtk-20220606/arch/arm/dts/mt7986a-ruijie-rg-x60.dts
+    
+    Co-authored-by: Tianling Shen <cnsztl@gmail.com>
+    
+    * uboot: using ENV_IMPORT_FDT to setup ruijie x60 bootconf env
+    
+    ---------
+    
+    Signed-off-by: Ashley Lee <code@emtips.net>
+    Co-authored-by: hanwckf <my375229675@gmail.com>
+    Co-authored-by: Tianling Shen <cnsztl@gmail.com>
+
+[33mcommit 880d7df742396c10f29441ec75a34bd8a098cc4e[m
+Author: hanwckf <hanwckf@vip.qq.com>
+Date:   Tue Nov 12 00:18:27 2024 +0800
+
+    uboot: add support for xiaomi ax3000t an8855 variant
+
+[33mcommit 907595c163341f720b9a7911b2f46b315d7cb3d7[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Thu Nov 7 14:02:58 2024 +0800
+
+    uboot-mtk-20230718-09eda825: failsafe: fix build without gl btn
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit 24215b75537113b5923c2e9a7ad1be17f977bc5e[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Sat Oct 26 17:43:10 2024 +0800
+
+    uboot-mtk-20230718-09eda825: fix erase ubi env for legacy mtd bootmenu
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit 9c22e498bfc48c444198cb56ff4b36cdf01ddc99[m
+Author: hanwckf <hanwckf@vip.qq.com>
+Date:   Mon Oct 28 23:58:24 2024 +0800
+
+    uboot-2022: fix build error
+
+[33mcommit c57c434e8917b5bd3123e7c6c4a0c4c062bae5d8[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Sun Oct 20 22:04:19 2024 +0800
+
+    uboot-mtk-20220818: bootmenu_emmc: apply changes to mt7622/mt7988
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit 8064c275a5e1cfeb0a36bf0fc7f5f8e1d9c66622[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Tue Oct 22 20:39:50 2024 +0800
+
+    uboot: fix erasing ubi when flash fit firmware
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit fb350b9ccae986639193c0465cc5ee2548d1565f[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Sun Oct 20 20:30:40 2024 +0800
+
+    uboot-mtk-20220606: port mtd_*_skip_bad func from uboot-2023
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit 58370a22645b3eefa91acef5a207410f41d38819[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Wed Oct 16 18:43:22 2024 +0800
+
+    uboot: renew glinet gl-mt2500 support
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit d2772cc4192c122a8a94e88487266ae162882c71[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Wed Oct 16 18:30:24 2024 +0800
+
+    uboot: renew glinet gl-mt3000 support
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit 914e22af6e93e5958765059f9c5a3139e8d862c4[m
+Author: Tianling Shen <i@cnsztl.eu.org>
+Date:   Wed Oct 16 16:36:17 2024 +0800
+
+    mt7981: add openembed som7981 support
+    
+    Signed-off-by: Tianling Shen <i@cnsztl.eu.org>
+
+[33mcommit 5bfaac82d9b2085b769b9aedd0832d973694a243[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Fri Oct 11 19:40:08 2024 +0800
+
+    uboot: increase flashing timeout to 180s
+    
+    Mainly for spi-nor flash, requires more time to complete.
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit 45c8c841d2dadd178b0ff8d8dded3eb3ddcabfd7[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Mon Oct 14 19:31:06 2024 +0800
+
+    uboot-mtk-20220606: fix read nor again
+    
+    should read fit size instead of page size.
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit eeb1ebb91c5b10d7ac2a72dabe2427d7eaac95e2[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Sun Oct 13 19:28:54 2024 +0800
+
+    atf-20220606-637ba581b: sync spi-nor ids
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit 018351a4a6042944c21f6b3c2899d9c1c408976f[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Sun Oct 13 19:19:18 2024 +0800
+
+    uboot-mtk-20220606: boot_helper: fix read snor
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit 668c84ad5e8e8cf002653258c1165d9076877c99[m
+Author: Ssunk <ssunkkan@gmail.com>
+Date:   Tue Jan 16 13:38:34 2024 +0800
+
+    uboot: mtd: spi: spi-nor-ids: Add more XM25Q series chips
+    
+    - XM25QH128C
+    - XM25QH256C
+    - XM25QU256C
+    - XM25QH512C
+    - XM25QU512C
+    
+    Signed-off-by: Kankan Sun <ssunkkan@gmail.com>
+    [jagan: update the commit message]
+    Signed-off-by: Jagan Teki <jagan@edgeble.ai>
+    Reviewed-by: Jagan Teki <jagan@amarulasolutions.com>
+
+[33mcommit 50e99574a181442dcafe0ae569adb1495539326e[m
+Author: Ricardo Pardini <ricardo@pardini.net>
+Date:   Tue Oct 17 21:40:20 2023 +0000
+
+    uboot: mtd: spi-nor: Add support for XMC XM25QU128C
+    
+    Add support for XMC XM25QU128C (128M-bit) Serial Flash memory. Used on
+    the Xunlong Orange Pi 3B, 5 and 5 Plus boards.
+    
+    Datasheet:
+    https://www.xmcwh.com/uploads/806/XM25QU128C_Ver2.0.pdf
+    
+    Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+    [jonas@kwiboo.se: update commit message]
+    Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+    Reviewed-by: Kever Yang <kever.yang@rock-chips.com>
+
+[33mcommit 290e6a9ce0d658f43b6c9ee4b8a3508961cd1417[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Sun Oct 6 22:22:06 2024 +0800
+
+    uboot: fix boot fit image from mtd
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit 985b24e379e6f8a20b5dedb33c25af73a0978cda[m
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Sun Oct 6 14:05:00 2024 +0800
+
+    uboot: mt7622: enable pstore
+    
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+
+[33mcommit 84cfb1511b5
