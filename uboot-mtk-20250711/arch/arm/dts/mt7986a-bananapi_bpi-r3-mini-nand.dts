@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/dts-v1/;
+#include "mt7986a-bananapi_bpi-r3-mini.dtsi"
+
+/ {
+	model = "mt7986-bpi-r3-mini-nand";
+	compatible = "mediatek,mt7986", "mediatek,mt7986-rfb";
+
+	bl2_verify {
+		bl2_compatible = "spim-nand";
+	};
+};
