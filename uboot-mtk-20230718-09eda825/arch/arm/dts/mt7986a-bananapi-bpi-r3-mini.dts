@@ -19,8 +19,8 @@
 	config {
 		bootcmd = "mtkboardboot";
 		environment {
-			bootargs=  "root=/dev/fit0 rootwait";
-			bootconf = "config-mt7986a-bananapi-bpi-r3-mini";
+			#bootargs =  "root=/dev/fit0 rootwait";
+			#bootconf = "config-mt7986a-bananapi-bpi-r3-mini";
 		};		
 	};
 

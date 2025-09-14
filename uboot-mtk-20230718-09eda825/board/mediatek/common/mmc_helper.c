@@ -37,8 +37,8 @@
 #define ROOTDEV_OVERLAY_ALIGN	(64ULL * 1024ULL)
 
 #define PART_PRODUCTION_NAME	"production"
-//#define PART_KERNEL_NAME	"kernel"
-#define PART_KERNEL_NAME	"recovery"
+#define PART_KERNEL_NAME	"kernel"
+//#define PART_KERNEL_NAME	"recovery"
 #define PART_ROOTFS_NAME	"rootfs"
 
 struct mmc_image_read_priv {
